@@ -5,3 +5,33 @@
 
 Simple translation system based on JSON files.
 
+It also provides a helper function for parsing the AcceptLanguage header.
+
+## JSON File format
+
+The JSON file which contains the translations has at the top level object the language code as property, this is 
+the only prerequisite. You can put as many levels as you want below the language code.
+
+```json
+{
+    "de":{
+        "user":{
+            "username":"Benutzername",
+            "password":"Passwort"
+        },
+        "validation":{
+            "required":"%s ist erforderlich!"
+        }
+    },
+    "en":{
+        "user":{
+            "username":"Username",
+            "password":"Password"
+        },
+        "validation":{
+            "required":"%s is mandatory!"
+        }
+    }
+}
+```
+
