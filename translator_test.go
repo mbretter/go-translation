@@ -131,3 +131,11 @@ func TestTranslator_WithLanguage(t *testing.T) {
 	assert.Equal(t, "Username", trEn.T("global.username"))
 	assert.Equal(t, "Benutzername", tr.T("global.username"))
 }
+
+func TestTranslator_Format(t *testing.T) {
+	tr, err := NewFromBuffer(&translationsTestBuf)
+
+	if assert.Nil(t, err) {
+		assert.Equal(t, "Benutzername ist erforderlich!", tr.T("validation.required", tr.T("global.username")))
+	}
+}
