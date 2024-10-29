@@ -84,7 +84,7 @@ type AcceptLanguage struct {
 }
 ```
 
-### http middleware
+### HTTP middleware
 
 You could build the parsing of the accept-language header into a http middleware, here is a code snippet how this could be done.
 

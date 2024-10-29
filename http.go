@@ -1,3 +1,4 @@
+// Package translation provides a helper function for parsing the HTTP Accept-Language header
 package translation
 
 import (
