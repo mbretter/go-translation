@@ -5,7 +5,7 @@
 
 Simple translation system based on JSON files.
 
-It also provides a helper function for parsing the AcceptLanguage header.
+It also provides a helper function for parsing the http Accept-Language header.
 
 ## JSON File format
 
@@ -37,7 +37,7 @@ the only prerequisite. You can put as many levels as you want below the language
 
 ## Usage
 
-Basically there are two translation functions, T and TL. T accepts the translation key only, while TL accepts the 
+Basically there are two translation functions, `T` and `TL`. T accepts the translation key only, while TL accepts the 
 language code as first argument.
 
 The translation key is a representation of the path to the final field name in dot format. If the key was not found 
@@ -58,12 +58,12 @@ translator = translator.WithLanguage("en")
 fmt.Println(translator.T("user.username")) // prints Username
 fmt.Println(translator.TL("de", "user.username")) // prints Benutzername
 fmt.Println(translator.T("some.path.not.found")) // prints some.path.not.found
-fmt.Println(tr.T("validation.required", tr.T("user.username")) // prints Username is mandatory!
+fmt.Println(tr.T("validation.required", tr.T("user.username"))) // prints Username is mandatory!
 ```
 
 ## Accept-Language header parsing
 
-When writing APIs it could be useful to change the translation language based on the Accept-Language header, which 
+When writing APIs it could be useful to change the translation language based on the `Accept-Language` header, which 
 was sent by the client.
 
 The ParseAcceptLanguage function parses the header by returning a slice of languages sorted by the quality value in 
@@ -74,7 +74,7 @@ langs := ParseAcceptLanguage("de;q=1,de-AT;q=0.8,fr;q=0.2")
 fmt.Println(langs) // outputs: [{de de  1} {de-AT de AT 0.8} {fr fr  0.2}]
 ```
 
-The returned AcceptLanguage struct is defined like this:
+The returned `AcceptLanguage` struct is defined like this:
 ```go
 type AcceptLanguage struct {
     Lang    string // de-AT, de
@@ -86,10 +86,10 @@ type AcceptLanguage struct {
 
 ### http middleware
 
-You could put the accept-language header parsing into a http middleware, here is a code snippet how this could be made.
+You could build the parsing of the accept-language header into a http middleware, here is a code snippet how this could be done.
 
 In this case the first language with the highest quality is used.
-The language as well as the translator is puted into the context and could later be used for accessing the translator.
+Both the language and the translator are placed in context and can later be used to access the translator.
 
 ```go
 func HttpLanguageMiddleware(translator *translation.Translator) func(next http.Handler) http.Handler {
